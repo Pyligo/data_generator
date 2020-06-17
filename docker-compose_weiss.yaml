@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  gilab_weiss_data_generator:
+    image: "10.7.0.117:9095/mabo_group/base_application/doctopus_ziyan:latest"
+    container_name: "gilab_weiss_data_generator"
+    # restart: always
+    working_dir: /usr/mabo/
+    command: python  csv-to-influxdb.py --dbname GILAB --input report_csv/weiss-1.csv -m weiss-1 --tag weiss-1 --timestart 2020-05-15T00:00:00Z                                                                    
+#    depends_on: 
+#      - redis
+    volumes:
+      - .:/usr/mabo/
+    networks:
+      - gilab_weiss_data_generator
+
+
+      
+networks:
+  gilab_weiss_data_generator:
+       external:
+          name: maiman_back
